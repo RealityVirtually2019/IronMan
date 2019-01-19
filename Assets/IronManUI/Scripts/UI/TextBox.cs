@@ -4,14 +4,19 @@
  * 
  * MIT Reality Virtually Hackathon
  **/
- 
+
 
 using UnityEngine;
 
 using TMPro;
-
+using System;
 
 namespace IronManUI {
+
+    [System.Serializable]
+    public class TextBoxModel : IMComponentModel {
+        public string text = "Sample text";
+    }
 
     [RequireComponent(typeof(BoxCollider))]
     public class TextBox : AbstractIMComponent {
@@ -41,11 +46,23 @@ namespace IronManUI {
 
 
         override protected void Update() {
+            textMesh.text = (model as TextBoxModel).text;
+
             var bounds = textMesh.bounds;
             boxCollider.size = new Vector3(bounds.size.x, bounds.size.y, touchThickness);
             boxCollider.center = bounds.center;
             
             base.Update();
+        }
+
+        override protected IMComponentModel CreateDefaultModel()
+        {
+            return new TextBoxModel();
+        }
+
+        protected override Type GetModelType()
+        {
+            return typeof(TextBoxModel);
         }
     }
 }

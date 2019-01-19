@@ -1,0 +1,203 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 43839,
+      "max": [
+        3840.0
+      ],
+      "min": [
+        0.0
+      ],
+      "name": "buffer-0-group-0-mesh-0-indices",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 3841,
+      "max": [
+        351.4553527832031,
+        824.2982788085938,
+        412.03875732421875
+      ],
+      "min": [
+        -418.1548767089844,
+        81.77629852294922,
+        -416.5070495605469
+      ],
+      "name": "buffer-0-group-0-mesh-0-position",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 46092,
+      "componentType": 5126,
+      "count": 3841,
+      "max": [
+        0.9988385438919067,
+        0.9998337030410767,
+        0.9999968409538269
+      ],
+      "min": [
+        -0.9996079206466675,
+        -0.9985051155090332,
+        -0.9998566508293152
+      ],
+      "name": "buffer-0-group-0-mesh-0-normal",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 87678,
+      "componentType": 5123,
+      "count": 1440,
+      "max": [
+        121.0
+      ],
+      "min": [
+        0.0
+      ],
+      "name": "buffer-0-group-1-mesh-0-indices",
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 92184,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        406.5831298828125,
+        825.554931640625,
+        412.27099609375
+      ],
+      "min": [
+        -411.7602844238281,
+        0.9001104235649109,
+        -415.0799255371094
+      ],
+      "name": "buffer-0-group-1-mesh-0-position",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 93648,
+      "componentType": 5126,
+      "count": 122,
+      "max": [
+        0.9880908131599426,
+        0.9903759360313416,
+        0.9937975406646729
+      ],
+      "min": [
+        -0.990777850151062,
+        -0.9998632669448853,
+        -0.9921125769615173
+      ],
+      "name": "buffer-0-group-1-mesh-0-normal",
+      "type": "VEC3"
+    }
+  ],
+  "asset": {
+    "generator": "Obj2GltfConverter",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 90558,
+      "byteOffset": 0,
+      "name": "buffer-0-bufferview-ushort",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 95112,
+      "byteOffset": 90564,
+      "byteStride": 12,
+      "name": "buffer-0-bufferview-vec3",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 185676,
+      "name": "buffer-0",
+      "uri": "planeta.bin"
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "name": "Land Masses",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.33924451470375,
+          0.6734693646431,
+          0.24679933488369,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9699476628648295
+      }
+    },
+    {
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "name": "Oceans",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.17080745100975,
+          0.56024843454361,
+          0.78571426868439,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.9699476628648295
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "buffer-0-mesh-0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 1,
+            "NORMAL": 2
+          },
+          "indices": 0,
+          "material": 0,
+          "mode": 4
+        },
+        {
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5
+          },
+          "indices": 3,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "node-0"
+    }
+  ],
+  "scenes": [
+    {
+      "name": "scene-0",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

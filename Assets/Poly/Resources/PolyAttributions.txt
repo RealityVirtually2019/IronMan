@@ -1,0 +1,43 @@
+This project uses the following items from Poly (http://poly.google.com):
+
+Title: Black/Diamond Dual Subwoofer
+Author: Evol Love
+URL: https://poly.google.com/view/27U8gAYZUT4
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Classic video camera
+Author: Jason Toff
+URL: https://poly.google.com/view/4fIwIHGRsAn
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Graph chart demo
+Author: Eugene Yew
+URL: https://poly.google.com/view/dW-lHeJui7h
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Mona Lisa
+Author: Enter Inventive Studio
+URL: https://poly.google.com/view/5LkTaldjB2B
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Planet Test
+Author: Sofía Royo Ramos
+URL: https://poly.google.com/view/bafn-qaRTOl
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Tree
+Author: Lori Landay
+URL: https://poly.google.com/view/8ygy9aKp1sZ
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Yellow Notebook
+Author: Ryan Donaldson
+URL: https://poly.google.com/view/1oVOzLG6l6i
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode

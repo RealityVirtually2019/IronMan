@@ -92,9 +92,8 @@ namespace IronManUI {
                 return;
 
             var moveDelta = transform.position - currentGrab.fingerAnchor;
-            currentGrab.component.translationMotion.origin = currentGrab.componentAnchor + moveDelta;
-
-            // currentGrab.component.translationMotion.origin = 
+            // currentGrab.component.translationMotion.origin = currentGrab.componentAnchor + moveDelta;
+            currentGrab.component.model.targetPosition = currentGrab.componentAnchor + moveDelta;
         }
 
 
