@@ -39,6 +39,10 @@ namespace IronManUI {
         /** AM: Controls strength of spring acceleration toward the origin */
         public float springK = 20;
 
+        public void Update() {
+            Update(Time.deltaTime);
+        }
+
         override public void Update(float deltaTime) {
             
             if (springK > 0 && origin.HasValue)

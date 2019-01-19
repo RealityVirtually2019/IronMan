@@ -21,7 +21,7 @@ namespace IronManUI {
     }
 
     [System.Serializable]
-    public class PresentationModel : ScriptableObject {
+    public class PresentationModel : Object {
         public string presentationName = "Untitled";
         public List<SlideModel> slides = new List<SlideModel>();
 
@@ -43,7 +43,22 @@ namespace IronManUI {
         public Slide slidePrefab;
         public TextBox textPrefab;
 
+        private Slide _currentSlide;
+        public Slide currentSlide {
+            get {
+                return _currentSlide;
+            }
+            set {
+                if (_currentSlide == value)
+                    return;
 
+                if (_currentSlide != null) {
+                    _currentSlide.Deactivate();
+                }
+                _currentSlide = value;
+                _currentSlide.Activate();
+            }
+        }
 
         // private PresentationModel model;
 
@@ -67,7 +82,7 @@ namespace IronManUI {
 
             foreach (var slideModel in model.slides) {
                 var slideObject = Instantiate(slidePrefab);
-                slideObject.SetModel(slideModel);
+                slideObject.SetModel(this, slideModel);
                 slideObject.transform.parent = transform;
             }
         }
@@ -110,6 +125,13 @@ namespace IronManUI {
 
             Debug.LogWarning("Cannot create component for model: " + model.GetType());
             return null;
+        }
+
+        public void SlideWaypointTouched(Slide slide) {
+            if (slide == null)
+                return;
+
+
         }
 
 
