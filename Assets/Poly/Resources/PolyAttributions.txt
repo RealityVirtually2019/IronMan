@@ -1,7 +1,54 @@
 This project uses the following items from Poly (http://poly.google.com):
 
+Title: Animated Human
+Author: Tomas Laulhe
+URL: https://poly.google.com/view/c3Ibh9I3udk
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Demo Chart
+Author: Eugene Yew
+URL: https://poly.google.com/view/a8i_SRaVGEA
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Earth
+Author: Robert Mirabelle
+URL: https://poly.google.com/view/0nEWYSdUqRq
+License: Creative Commons CC-BY
+
+Title: Forest
+Author: Poly by Google
+URL: https://poly.google.com/view/6aPwDI6pvZP
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Iceberg
+Author: Poly by Google
+URL: https://poly.google.com/view/8sqTOfIjWml
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: jazmodel1
+Author: jUSTIN nOPE
+URL: https://poly.google.com/view/55LEE2RSBTX
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Nature
+Author: 3Donimus
+URL: https://poly.google.com/view/0nsE2b8uXZy
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: OBJ prod lighthouse 17
 Author: Robert Mark
 URL: https://poly.google.com/view/1rVMwOcVYYu
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Tree
+Author: Poly by Google
+URL: https://poly.google.com/view/6pwiq7hSrHr
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
