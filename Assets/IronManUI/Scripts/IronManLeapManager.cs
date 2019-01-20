@@ -17,14 +17,14 @@ namespace IronManUI {
     public class FingertipInfo {
         public InteractionHand hand;
         // public PinchDetector pinch;
-        public Fingertip fingertip;
-        public Fingertip thumb;
+        public Fingertip thumb, index, middle;
 
-        public FingertipInfo(InteractionHand hand, Fingertip thumb, Fingertip fingertip) {
+        public FingertipInfo(InteractionHand hand, Fingertip thumb, Fingertip index, Fingertip middle) {
             this.hand = hand;
             // this.pinch = pinch;
             this.thumb = thumb;
-            this.fingertip = fingertip;
+            this.index = index;
+            this.middle = middle;
         }
     }
 
@@ -61,13 +61,17 @@ namespace IronManUI {
                 if (indexFingertip == null)
                     Debug.Log("Warning: index fingertip not added.");
 
+                var flippingFingertip = hand.transform.GetChild(3).GetComponent<Fingertip>();
+                if (flippingFingertip == null)
+                    Debug.Log("Warning: middle fingertip not added.");
+
                 // var pinchObj = new GameObject("PinchDetector-" + hand.name);
                 // pinchObj.transform.parent = transform;
                 // var pinchDetector = pinchObj.AddComponent<PinchDetector>();
                 // pinchDetector.HandModel = hand;
                 // hand.
 
-                fingertipInfoList.Add(new FingertipInfo(hand, thumb, indexFingertip));
+                fingertipInfoList.Add(new FingertipInfo(hand, thumb, indexFingertip, flippingFingertip));
             }
         }
 
@@ -78,7 +82,7 @@ namespace IronManUI {
             var collider = finger.GetComponent<BoxCollider>();
             if (collider == null)
                 collider = finger.AddComponent<BoxCollider>();
-            collider.size = new Vector3(.05f,.05f,.05f);
+            collider.size = new Vector3(.1f,.1f,.1f);
 
             var rigidBody = finger.GetComponent<Rigidbody>();
             if (rigidBody == null)
@@ -102,10 +106,15 @@ namespace IronManUI {
             }
 
             foreach (var fingertipInfo in fingertipInfoList) {
-                var pinchDistance = Vector3.Distance(fingertipInfo.thumb.transform.position, fingertipInfo.fingertip.transform.position);
-                bool grabbing = pinchDistance < pinchDistanceThresh;
-                Debug.Log("Pinch distance: " + pinchDistance + " :: " + grabbing);
-                fingertipInfo.fingertip.grabbing = grabbing;
+                var indexPinchDistance = Vector3.Distance(fingertipInfo.thumb.transform.position, fingertipInfo.index.transform.position);
+                var middlePinchDistance = Vector3.Distance(fingertipInfo.thumb.transform.position, fingertipInfo.middle.transform.position);
+                bool indexGrabbing = indexPinchDistance < pinchDistanceThresh;
+                bool middleGrabbing = middlePinchDistance < pinchDistanceThresh;
+                if (indexGrabbing)
+                    middleGrabbing = false;         //don't grab with both fingers
+                // Debug.Log("Pinch distance: " + indexPinchDistance + " :: " + indexGrabbing);
+                fingertipInfo.index.grabbing = indexGrabbing;
+                fingertipInfo.middle.grabbing = middleGrabbing;
             }
         }
 
