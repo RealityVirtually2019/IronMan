@@ -6,6 +6,18 @@ URL: https://poly.google.com/view/c3Ibh9I3udk
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: Black/Diamond Dual Subwoofer
+Author: Evol Love
+URL: https://poly.google.com/view/27U8gAYZUT4
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Classic video camera
+Author: Jason Toff
+URL: https://poly.google.com/view/4fIwIHGRsAn
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Demo Chart
 Author: Eugene Yew
 URL: https://poly.google.com/view/a8i_SRaVGEA
@@ -16,10 +28,29 @@ Title: Earth
 Author: Robert Mirabelle
 URL: https://poly.google.com/view/0nEWYSdUqRq
 License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Factory
+Author: Poly by Google
+URL: https://poly.google.com/view/fCiJW5Qdgbf
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
 
 Title: Forest
 Author: Poly by Google
 URL: https://poly.google.com/view/6aPwDI6pvZP
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Gramophone
+Author: Bruno Oliveira
+URL: https://poly.google.com/view/fs3aTWoMyNw
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Graph chart demo
+Author: Eugene Yew
+URL: https://poly.google.com/view/dW-lHeJui7h
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
@@ -35,6 +66,12 @@ URL: https://poly.google.com/view/55LEE2RSBTX
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: Mona Lisa
+Author: Enter Inventive Studio
+URL: https://poly.google.com/view/5LkTaldjB2B
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Nature
 Author: 3Donimus
 URL: https://poly.google.com/view/0nsE2b8uXZy
@@ -47,36 +84,6 @@ URL: https://poly.google.com/view/1rVMwOcVYYu
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
-Title: Tree
-Author: Poly by Google
-URL: https://poly.google.com/view/6pwiq7hSrHr
-License: Creative Commons CC-BY
-https://creativecommons.org/licenses/by/3.0/legalcode
-
-Title: Black/Diamond Dual Subwoofer
-Author: Evol Love
-URL: https://poly.google.com/view/27U8gAYZUT4
-License: Creative Commons CC-BY
-https://creativecommons.org/licenses/by/3.0/legalcode
-
-Title: Classic video camera
-Author: Jason Toff
-URL: https://poly.google.com/view/4fIwIHGRsAn
-License: Creative Commons CC-BY
-https://creativecommons.org/licenses/by/3.0/legalcode
-
-Title: Graph chart demo
-Author: Eugene Yew
-URL: https://poly.google.com/view/dW-lHeJui7h
-License: Creative Commons CC-BY
-https://creativecommons.org/licenses/by/3.0/legalcode
-
-Title: Mona Lisa
-Author: Enter Inventive Studio
-URL: https://poly.google.com/view/5LkTaldjB2B
-License: Creative Commons CC-BY
-https://creativecommons.org/licenses/by/3.0/legalcode
-
 Title: Planet Test
 Author: Sofía Royo Ramos
 URL: https://poly.google.com/view/bafn-qaRTOl
@@ -84,8 +91,26 @@ License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
 Title: Tree
+Author: Poly by Google
+URL: https://poly.google.com/view/6pwiq7hSrHr
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Tree
 Author: Lori Landay
 URL: https://poly.google.com/view/8ygy9aKp1sZ
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Wall painting
+Author: Poly by Google
+URL: https://poly.google.com/view/0CiZ4f1cZaF
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
+Title: Wind turbine
+Author: Poly by Google
+URL: https://poly.google.com/view/8Tke6WIyZtg
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 

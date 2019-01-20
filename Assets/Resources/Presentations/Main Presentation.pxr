@@ -1,0 +1,23 @@
+{
+    "name": "Untitled",
+    "slides": [
+        {
+            "name": "Slide 1",
+            "position": {
+                "x": -0.9512810707092285,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "components": []
+        },
+        {
+            "name": "Slide 2",
+            "position": {
+                "x": 0.9117189645767212,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "components": []
+        }
+    ]
+}

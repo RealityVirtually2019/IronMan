@@ -43,10 +43,15 @@ namespace IronManUI {
 
         void RigHands() {
             foreach (var hand in leapRig.GetComponentsInChildren<InteractionHand>()) {
+                if (hand.transform.childCount < 3)
+                    continue;
+
                 Debug.Log("Processing hand");
+
                 foreach (var finger in hand.transform.GetChildren()) {
                     RigFingertip(finger.gameObject);
                 }
+
                 
                 var thumb = hand.transform.GetChild(1).GetComponent<Fingertip>();
                 if (thumb == null)

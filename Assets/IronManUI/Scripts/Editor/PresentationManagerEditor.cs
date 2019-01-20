@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace IronManUI {
 
+    [CustomEditor(typeof(PresentationManager))]
     public class PresentationManagerEditor : Editor {
 
         public override void OnInspectorGUI() {
