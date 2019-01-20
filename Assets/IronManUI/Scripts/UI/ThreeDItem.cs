@@ -16,7 +16,10 @@ namespace IronManUI {
     [System.Serializable]
     
     public class ThreeDItemModel : IMComponentModel {
-        public float resourceScale = 1f;
+        // public float resourceScale = 1f;
+        public Vector3 resourcePosition;
+        public Vector3 resourceScale = Vector3.one;
+
         public string resource = "";
 
         override public void Copy(IMComponentModel o) {
@@ -69,7 +72,7 @@ namespace IronManUI {
                     var obj = Instantiate(resource) as GameObject;
                     if (obj != null) {
                         obj.transform.parent = transform;
-                        obj.transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
+                        // obj.transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
                     }
                 }
                 loadedResName = model.resource;
@@ -80,7 +83,10 @@ namespace IronManUI {
             }
 
             if (transform.childCount > 0) {
-                transform.GetChild(0).transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
+                var childT = transform.GetChild(0).transform;
+                // transform.GetChild(0).transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
+                childT.localPosition = model.resourcePosition;
+                childT.localScale = model.resourceScale;
             }
             
             base.Update();

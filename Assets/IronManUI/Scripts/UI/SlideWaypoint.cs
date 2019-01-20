@@ -50,7 +50,8 @@ namespace IronManUI {
         }
 
         void OnCollisionEnter(Collision collision) {
-            HandleClick();
+            if (collision.gameObject.GetComponent<Fingertip>() != null)
+                HandleClick();
         }
 
         void OnMouseDown() {
