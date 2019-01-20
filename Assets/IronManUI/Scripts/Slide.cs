@@ -51,12 +51,14 @@ namespace IronManUI {
         }
 
         public void Activate() {
+            Debug.Log("Activating slide " + this);
             foreach (var comp in GetComponentsInChildren<AbstractIMComponent>()) {
                 comp.visible = true;
             }
         }
 
         public void Deactivate() {
+            Debug.Log("Closing slide " + this);
             foreach (var comp in GetComponentsInChildren<AbstractIMComponent>()) {
                 comp.visible = false;
             }

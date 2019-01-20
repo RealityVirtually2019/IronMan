@@ -34,7 +34,7 @@ namespace IronManUI {
 
             scalingMotion.origin = IsCurrentSlide() ? Vector3.zero : Vector3.one;
             scalingMotion.Update();
-            transform.localScale = scalingMotion.position;
+            transform.localScale = scalingMotion.position.MinValue(0);
         }
 
         void UpdateColliderBounds() {

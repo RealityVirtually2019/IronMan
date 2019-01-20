@@ -18,6 +18,7 @@ namespace IronManUI {
             foreach (var o in toDestroy)
                 Object.Destroy(o);
         }
+        
 
         //TODO Needs TLC
         public static Bounds GetBounds(this GameObject o) {
@@ -39,6 +40,14 @@ namespace IronManUI {
             }
 
             return bounds;
+        }
+
+        public static Vector3 MinValue(this Vector3 v, float min) {
+            var outV = v;
+            if (outV.x < min) outV.x = min;
+            if (outV.y < min) outV.y = min;
+            if (outV.z < min) outV.z = min;
+            return outV;
         }
 
     }

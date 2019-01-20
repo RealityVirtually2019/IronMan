@@ -36,6 +36,7 @@ namespace IronManUI {
         public bool visible = true;
 
         public GrabHandler grab { get; private set; }
+        private IMComponentMenuHandler menuHandler;
 
         private IMComponentModel _model;
         public IMComponentModel model {
@@ -57,6 +58,7 @@ namespace IronManUI {
 
         virtual protected void OnEnable() {
             grab = new GrabHandler(this);
+            menuHandler = new IMComponentMenuHandler(this);
             // targetvisible ? transform.position;
             // rotationMotion.position = transform.rotation.eulerAngles;
             // scalingMotion.position = transform.localScale;
@@ -65,12 +67,14 @@ namespace IronManUI {
 
         virtual protected void OnDisable() {
             grab = null;
+            menuHandler = null;
         }
 
         
         virtual protected void Update() {
 
             grab.Update();
+            menuHandler.Update();
 
             translationMotion.origin = visible ? model.targetPosition : model.hiddenPosition;
             translationMotion.Update(Time.deltaTime);
@@ -82,7 +86,7 @@ namespace IronManUI {
 
             scalingMotion.origin = visible ? model.targetScale : model.hiddenScale;
             scalingMotion.Update(Time.deltaTime);
-            transform.localScale = scalingMotion.position;
+            transform.localScale = scalingMotion.position.MinValue(0);
         }
 
         abstract protected Type GetModelType();
