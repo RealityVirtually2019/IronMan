@@ -42,6 +42,12 @@ URL: https://poly.google.com/view/6aPwDI6pvZP
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: Gramophone
+Author: Bruno Oliveira
+URL: https://poly.google.com/view/fs3aTWoMyNw
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Graph chart demo
 Author: Eugene Yew
 URL: https://poly.google.com/view/dW-lHeJui7h
