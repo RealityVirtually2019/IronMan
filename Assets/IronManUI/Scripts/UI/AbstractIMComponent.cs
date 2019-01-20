@@ -132,17 +132,34 @@ namespace IronManUI {
             grab.Update();
             menuHandler.Update();
 
-            translationMotion.origin = visible ? model.targetPosition : model.hiddenPosition;
-            translationMotion.Update(Time.deltaTime);
-            transform.position = translationMotion.position;
+            var parentT = transform.parent;
+            var parentM = parentT == null ? Matrix4x4.identity : parentT.localToWorldMatrix;
 
-            rotationMotion.origin = visible ? model.targetRotation : model.hiddenRotation;
-            rotationMotion.Update(Time.deltaTime);
-            transform.rotation = Quaternion.Euler(rotationMotion.position);
 
-            scalingMotion.origin = visible ? model.targetScale : model.hiddenScale;
-            scalingMotion.Update(Time.deltaTime);
-            transform.localScale = scalingMotion.position.MinValue(0);
+            translationMotion.origin = parentM.MultiplyPoint(visible ? model.targetPosition : model.hiddenPosition);
+            
+            rotationMotion.origin = parentM.MultiplyVector(visible ? model.targetRotation : model.hiddenRotation);
+            
+            scalingMotion.origin = visible ? model.targetScale : model.hiddenScale;     //don't transform, because scalingMotion is calculated for local
+            
+
+            if (Application.isPlaying) {
+                translationMotion.Update(Time.deltaTime);
+                transform.position = translationMotion.position;
+
+                rotationMotion.Update(Time.deltaTime);
+                transform.rotation = Quaternion.Euler(rotationMotion.position);
+
+                scalingMotion.Update(Time.deltaTime);
+                transform.localScale = scalingMotion.position.MinValue(0);
+            }
+            else {
+                transform.position = translationMotion.origin.Value;
+
+                transform.rotation = Quaternion.Euler(scalingMotion.origin.Value);
+
+                transform.localScale = scalingMotion.origin.Value;
+            }
         }
 
         abstract protected Type GetModelType();
