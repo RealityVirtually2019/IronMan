@@ -44,7 +44,7 @@ namespace IronManUI {
         //     }
         // }
 
-        protected float passiveTouchForce = .5f;
+        protected float passiveTouchForce = 1.5f;
 
         /** For velocity */
         private Vector3? previousPosition;
@@ -98,7 +98,7 @@ namespace IronManUI {
 
 
         void OnCollisionEnter(Collision collision) {
-            Debug.Log("Fingertip Collision enter");
+            // Debug.Log("Fingertip Collision enter");
             var component = collision.GetIronManComponent();
             if (component != null) {
                 touchingComp = component;
@@ -107,11 +107,13 @@ namespace IronManUI {
 
         void OnCollisionStay(Collision collision) {
             var component = collision.GetIronManComponent();
-            if (component == touchingComp) {
+            if (component != null && component == touchingComp) {
+                // Debug.Log("Component: " + component + " , motion: " + component.translationMotion);
                 // var deltaVelocity = collision.relativeVelocity - component.velocity;        //AM relative velocity does not incorporate velocity of the non-rigidbody collider
                 var deltaVelocity = velocity - component.translationMotion.velocity;
                 // Debug.Log("Touched UI Moved: " + component);
-                component.translationMotion.AddAcceleration(deltaVelocity * passiveTouchForce);
+                if (velocity.magnitude < 10)
+                    component.translationMotion.AddAcceleration(deltaVelocity * passiveTouchForce);
                 // Debug.Log("delta v: " + deltaVelocity);
 
             }

@@ -9,11 +9,19 @@ using UnityEngine;
 
 namespace IronManUI {
 
+    [System.Serializable]
     public class Slide : MonoBehaviour {
 
         public PresentationManager manager;
 
-        public void SetModel(SlideModel slideModel) {
+        public bool IsCurrentSlide() {
+            if (manager == null)
+                return false;
+            return manager.currentSlide == this;
+        }
+
+        public void SetModel(PresentationManager manager, SlideModel slideModel) {
+            this.manager = manager;
             name = slideModel.name;
             transform.position = slideModel.position;
 
@@ -32,6 +40,14 @@ namespace IronManUI {
                 model.components.Add(comp.model);
             }
             return model;
+        }
+
+        public void Activate() {
+
+        }
+
+        public void Deactivate() {
+
         }
 
 
