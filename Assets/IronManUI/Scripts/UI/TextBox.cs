@@ -28,10 +28,10 @@ namespace IronManUI {
 
         public string text {
             get {
-                return textMesh.text;
+                return (model as TextBoxModel).text;
             }
             set {
-                textMesh.text = value;
+                (model as TextBoxModel).text = value;
             }
         }
 
