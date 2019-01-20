@@ -18,6 +18,13 @@ namespace IronManUI {
             foreach (var o in toDestroy)
                 Object.Destroy(o);
         }
+
+        public static void DestroyChildren(this GameObject o) {
+            var t = o.transform;
+            while (t.childCount > 0) {
+                Object.Destroy(t.GetChild(0));
+            }
+        }
         
 
         //TODO Needs TLC

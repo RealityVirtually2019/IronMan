@@ -44,6 +44,7 @@ namespace IronManUI {
 
         public Slide slidePrefab;
         public TextBox textPrefab;
+        public ThreeDItem threeDPrefab;
 
         private Slide _currentSlide;
         public Slide currentSlide {
@@ -137,6 +138,9 @@ namespace IronManUI {
             if (model is TextBoxModel) {
                 var textbox = Instantiate(textPrefab) as TextBox;
                 textbox.model = model;
+            } else if (model is ThreeDItemModel) {
+                var item = Instantiate(threeDPrefab);
+                item.model = model;
             }
 
             Debug.LogWarning("Cannot create component for model: " + model.GetType());
