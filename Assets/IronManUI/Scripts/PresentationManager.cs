@@ -21,24 +21,23 @@ namespace IronManUI {
     }
 
     [System.Serializable]
-    public class PresentationModel : Object {
-        public string presentationName = "Untitled";
+    public class PresentationModel {
+        public string name = "Untitled";
         public List<SlideModel> slides = new List<SlideModel>();
 
 
-        public void SaveToFile(string filepath) {
-            string json = JsonUtility.ToJson(this);
-            File.WriteAllText(filepath, json);
+        public string SaveToJson() {
+            return JsonUtility.ToJson(this, true);
         }
 
-        public void LoadFromFile(string filepath) {
-            string json = File.ReadAllText(filepath);
+        public void LoadFromJson(string json) {
             JsonUtility.FromJsonOverwrite(json, this);
         }
     }
 
     public class PresentationManager : MonoBehaviour {
         public string presentationFile = "Assets/Resources/Presentations/Main Presentation.pxr";
+        public string presentationName = "Untitled";
 
         public Slide slidePrefab;
         public TextBox textPrefab;
@@ -67,17 +66,27 @@ namespace IronManUI {
         }
 
         public void Load() {
-            var model = new PresentationModel();
-            model.LoadFromFile(presentationFile);
+            string json = File.ReadAllText(presentationFile);
+
+            PresentationModel model;
+            if (json != null && json.Length > 0) {
+                model = new PresentationModel();
+                model.LoadFromJson(json);
+            } else {
+                model = MakeDefault();
+            }
             SetModel(model);
         }
 
         public void Save() {
             var model = ExtractModel();
-            model.SaveToFile(presentationFile);
+            string json = model.SaveToJson();
+            File.WriteAllText(presentationFile, json);
         }
 
         protected void SetModel(PresentationModel model) {
+            presentationName = model.name;
+
             GetComponentsInChildren<Slide>().DestroyAllGameObjects();
 
             foreach (var slideModel in model.slides) {
@@ -89,7 +98,7 @@ namespace IronManUI {
 
         protected PresentationModel ExtractModel() {
             var model = new PresentationModel();
-            model.name = gameObject.name;
+            model.name = presentationName;
 
             foreach (var slide in GetComponentsInChildren<Slide>()) {
                 model.slides.Add(slide.ExtractModel());
@@ -131,7 +140,7 @@ namespace IronManUI {
             if (slide == null)
                 return;
 
-
+            currentSlide = slide;
         }
 
 
