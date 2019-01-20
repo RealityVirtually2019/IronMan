@@ -14,10 +14,19 @@ using System;
 namespace IronManUI {
 
     [System.Serializable]
+    
     public class TextBoxModel : IMComponentModel {
         public string text = "Sample text";
+
+        override public void Copy(IMComponentModel o) {
+            var o1 = o as TextBoxModel;
+            if (o1 != null) {
+                text = o1.text;
+            }
+        }
     }
 
+    [ExecuteInEditMode]
     [RequireComponent(typeof(BoxCollider))]
     public class TextBox : AbstractIMComponent {
         
@@ -26,15 +35,17 @@ namespace IronManUI {
 
         public TextMeshPro textMesh;
 
-        public string text {
+        public TextBoxModel textBoxModel;
+
+        // public string text;
+
+        override public IMComponentModel model {
             get {
-                return (model as TextBoxModel).text;
-            }
-            set {
-                (model as TextBoxModel).text = value;
+                if (textBoxModel == null)
+                    textBoxModel = new TextBoxModel();
+                return textBoxModel;
             }
         }
-
 
         override protected void OnEnable() {
             base.OnEnable();
@@ -44,9 +55,24 @@ namespace IronManUI {
             textMesh.autoSizeTextContainer = true;
         }
 
+        // override public void SetModel(IMComponentModel value) {
+        //     base.SetModel(value);
+
+        //     var model = value as TextBoxModel;
+        //     if (model != null)
+        //         text = model.text;
+        // }
+
+        // override public IMComponentModel ExtractModel() {
+        //     TextBoxModel model = base.ExtractModel() as TextBoxModel;
+        //     model.text = text;
+
+        //     return model;
+        // }
+
 
         override protected void Update() {
-            textMesh.text = (model as TextBoxModel).text;
+            textMesh.text = textBoxModel.text;
 
             var bounds = textMesh.bounds;
             boxCollider.size = new Vector3(bounds.size.x, bounds.size.y, touchThickness);

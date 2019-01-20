@@ -137,10 +137,10 @@ namespace IronManUI {
 
             if (model is TextBoxModel) {
                 var textbox = Instantiate(textPrefab) as TextBox;
-                textbox.model = model;
+                textbox.model.Copy(model);
             } else if (model is ThreeDItemModel) {
                 var item = Instantiate(threeDPrefab);
-                item.model = model;
+                item.model.Copy(model);
             }
 
             Debug.LogWarning("Cannot create component for model: " + model.GetType());

@@ -22,6 +22,17 @@ namespace IronManUI {
 
         public Vector3 targetScale = Vector3.one;
         public Vector3 hiddenScale;
+
+        virtual public void Copy(IMComponentModel o) {
+            targetPosition = o.targetPosition;
+            hiddenPosition = o.hiddenPosition;
+
+            targetRotation = o.targetRotation;
+            hiddenRotation = o.hiddenRotation;
+
+            targetScale = o.targetScale;
+            hiddenScale = o.hiddenScale;
+        }
     }
 
 
@@ -32,33 +43,78 @@ namespace IronManUI {
         public readonly Spring3AngularMotion rotationMotion = new Spring3AngularMotion();
         public readonly Spring3Motion scalingMotion = new Spring3Motion();
 
+        // public Vector3 targetPosition {
+        //     get {
+        //         return _internalModel.targetPosition;
+        //     }
+        //     set {
+        //         _internalModel.targetPosition = value;
+        //     }
+        // }
+
+        // public Vector3 targetRotation {
+        //     get {
+        //         return _internalModel.targetRotation;
+        //     }
+        //     set {
+        //         _internalModel.targetRotation = value;
+        //     }
+        // }
+
+        // public Vector3 targetScale {
+        //     get {
+        //         return _internalModel.targetScale;
+        //     }
+        //     set {
+        //         _internalModel.targetScale = value;
+        //     }
+        // }
+
+        abstract public IMComponentModel model { get; }
+
 
         public bool visible = true;
 
         public GrabHandler grab { get; private set; }
         private IMComponentMenuHandler menuHandler;
 
-        private IMComponentModel _model;
-        public IMComponentModel model {
-            get {
-                if (_model == null)
-                    _model = CreateDefaultModel();
-                return _model;
-            }
-            set {       //setting a null value resets the model to default
-                if (value != null && value.GetType() != GetModelType()) {
-                    Debug.LogWarningFormat("Error setting model of type {0} to {1}", value.GetType(), GetType());
-                    return;
-                }
+        // private IMComponentModel _internalModel;
+        //     get {
+        //         if (_model == null)
+        //             _model = CreateDefaultModel();
+        //         return _model;
+        //     }
+        //     set {       //setting a null value resets the model to default
+        //         if (value != null && value.GetType() != GetModelType()) {
+        //             Debug.LogWarningFormat("Error setting model of type {0} to {1}", value.GetType(), GetType());
+        //             return;
+        //         }
 
-                _model = value;
-            }
-        }
+        //         _model = value;
+        //     }
+        // }
+
+        // virtual public void SetModel(IMComponentModel value) {
+        //     if (value != null && value.GetType() != GetModelType()) {
+        //         Debug.LogWarningFormat("Error setting model of type {0} to {1}", value.GetType(), GetType());
+        //         return;
+        //     }
+
+        //     if (value == null)
+        //         _internalModel = CreateDefaultModel();
+        //     else
+        //         _internalModel = value;
+        // }
+
+        // virtual public IMComponentModel ExtractModel() {
+        //     return _internalModel;
+        // }
 
 
         virtual protected void OnEnable() {
             grab = new GrabHandler(this);
             menuHandler = new IMComponentMenuHandler(this);
+            // model = CreateDefaultModel();
             // targetvisible ? transform.position;
             // rotationMotion.position = transform.rotation.eulerAngles;
             // scalingMotion.position = transform.localScale;
@@ -159,28 +215,29 @@ namespace IronManUI {
                 grabs.Remove(key);
             }
 
-            
-            if (grabAvgAnchor.HasValue) {
-                Vector3 grabAvg, grabRotation;
-                float grabRadius;
-                CalculateGrabStats(out grabAvg, out grabRadius, out grabRotation);
+            if (grabs.Count > 0) {
+                if (grabAvgAnchor.HasValue) {
+                    Vector3 grabAvg, grabRotation;
+                    float grabRadius;
+                    CalculateGrabStats(out grabAvg, out grabRadius, out grabRotation);
 
-                parent.model.targetPosition = componentPositionAnchor + (grabAvg - grabAvgAnchor.Value);
-                parent.model.targetRotation = componentRotationAnchor + (grabRotation - grabRotationAnchor);
-                
-                if (grabRadiusAnchor > .01 && grabRadius > .01) //safety checking
-                    parent.model.targetScale = componentScaleAnchor * (grabRadius/ grabRadiusAnchor);
+                    parent.model.targetPosition = componentPositionAnchor + (grabAvg - grabAvgAnchor.Value);
+                    parent.model.targetRotation = componentRotationAnchor + (grabRotation - grabRotationAnchor);
+                    
+                    if (grabRadiusAnchor > .01 && grabRadius > .01) //safety checking
+                        parent.model.targetScale = componentScaleAnchor * (grabRadius/ grabRadiusAnchor);
 
-            }
-            else {
-                Vector3 p;
-                CalculateGrabStats(out p, out grabRadiusAnchor, out grabRotationAnchor);
-                grabAvgAnchor = p;
+                }
+                else {
+                    Vector3 p;
+                    CalculateGrabStats(out p, out grabRadiusAnchor, out grabRotationAnchor);
+                    grabAvgAnchor = p;
 
-                var t = parent.transform;
-                componentPositionAnchor = t.position;
-                componentRotationAnchor = t.rotation.eulerAngles;
-                componentScaleAnchor = t.localScale;
+                    var t = parent.transform;
+                    componentPositionAnchor = t.position;
+                    componentRotationAnchor = t.rotation.eulerAngles;
+                    componentScaleAnchor = t.localScale;
+                }
             }
 
         }

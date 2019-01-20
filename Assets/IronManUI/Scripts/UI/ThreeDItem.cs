@@ -14,14 +14,32 @@ using System;
 namespace IronManUI {
 
     [System.Serializable]
+    
     public class ThreeDItemModel : IMComponentModel {
+        public float resourceScale = 1f;
         public string resource = "";
-        public Vector3 scale = Vector3.one;
+
+        override public void Copy(IMComponentModel o) {
+            var o1 = o as ThreeDItemModel;
+            if (o1 != null) {
+                resource = o1.resource;
+                resourceScale = o1.resourceScale;
+            }
+        }
     }
 
+    [ExecuteInEditMode]
     [RequireComponent(typeof(BoxCollider))]
     public class ThreeDItem : AbstractIMComponent {
         
+        public ThreeDItemModel threeDModel;
+        override public IMComponentModel model {
+            get {
+                if (threeDModel == null) 
+                    threeDModel = new ThreeDItemModel();
+                return threeDModel;
+            }
+        }
 
         protected BoxCollider boxCollider;
         private string loadedResName;
@@ -45,14 +63,14 @@ namespace IronManUI {
                     var obj = Instantiate(resource) as GameObject;
                     if (obj != null) {
                         obj.transform.parent = transform;
-                        obj.transform.localScale = model.scale;
+                        obj.transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
                     }
                 }
                 loadedResName = model.resource;
             }
 
             if (transform.childCount > 0) {
-                transform.GetChild(0).transform.localScale = model.scale;
+                transform.GetChild(0).transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
             }
             var bounds = gameObject.GetBounds();        //TODO needs help
             boxCollider.size = bounds.size;
