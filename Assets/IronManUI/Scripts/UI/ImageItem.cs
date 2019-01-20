@@ -14,9 +14,11 @@ using System;
 namespace IronManUI {
 
     [System.Serializable]
+    
     public class ImageModel : IMComponentModel {
         public float resourceScale = 1f;
         public string resource = "";
+
         override public void Copy(IMComponentModel o) {
             var o1 = o as ImageModel;
             if (o1 != null) {
@@ -49,6 +51,12 @@ namespace IronManUI {
                 boxCollider = gameObject.AddComponent<BoxCollider>();
         }
 
+        override protected void OnDisable() {
+            base.OnDisable();
+            gameObject.DestroyChildren();
+            loadedResName = null;
+        }
+
         override protected void Update() {
             ImageModel model = this.model as ImageModel;
             if (model.resource != loadedResName) {
@@ -65,12 +73,13 @@ namespace IronManUI {
                 loadedResName = model.resource;
             }
 
+                // var bounds = gameObject.GetBounds();        //TODO needs help
+                // boxCollider.size = bounds.size;
+                // boxCollider.center = bounds.center;
+
             if (transform.childCount > 0) {
                 transform.GetChild(0).transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
             }
-            var bounds = gameObject.GetBounds();        //TODO needs help
-            boxCollider.size = bounds.size;
-            boxCollider.center = bounds.center;
 
             base.Update();
         }
