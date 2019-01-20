@@ -36,6 +36,9 @@ namespace IronManUI {
     }
 
     public class PresentationManager : MonoBehaviour {
+
+        public static PresentationManager instance { get; private set; }
+
         public string presentationFile = "Assets/Resources/Presentations/Main Presentation.pxr";
         public string presentationName = "Untitled";
 
@@ -62,6 +65,10 @@ namespace IronManUI {
         // private PresentationModel model;
 
         void OnEnable() {
+            if (instance != null && instance != this)
+                Debug.LogWarning("Having multiple presentations in a scene is not supported");
+            instance = this;
+
             Load();
         }
 
