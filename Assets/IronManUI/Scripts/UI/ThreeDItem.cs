@@ -74,9 +74,9 @@ namespace IronManUI {
                 }
                 loadedResName = model.resource;
 
-                var bounds = gameObject.GetBounds();        //TODO needs help
-                boxCollider.size = bounds.size;
-                boxCollider.center = bounds.center;
+                // var bounds = gameObject.GetBounds();        //TODO needs help
+                // boxCollider.size = bounds.size;
+                // boxCollider.center = bounds.center;
             }
 
             if (transform.childCount > 0) {
