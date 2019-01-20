@@ -41,8 +41,8 @@ namespace Leap.Unity.Examples {
         initialize();
       }
       if (!_initialized) return;
-
-      if (GetIsFacingCamera(toFaceCamera, Camera.main, _isFacingCamera ? 0.77F : 0.82F) != _isFacingCamera) {
+      // 7 instead of 4 and 8 instad of 5
+      if (GetIsFacingCamera(toFaceCamera, Camera.main, _isFacingCamera ? 0.47F : 0.52F) != _isFacingCamera) {
         _isFacingCamera = !_isFacingCamera;
 
         if (_isFacingCamera) {
@@ -53,8 +53,8 @@ namespace Leap.Unity.Examples {
         }
       }
     }
-
-    public static bool GetIsFacingCamera(Transform facingTransform, Camera camera, float minAllowedDotProduct = 0.8F) {
+    // 6 was 8
+    public static bool GetIsFacingCamera(Transform facingTransform, Camera camera, float minAllowedDotProduct = 0.6F) {
       return Vector3.Dot((camera.transform.position - facingTransform.position).normalized, facingTransform.forward) > minAllowedDotProduct;
     }
 
