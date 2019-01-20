@@ -189,7 +189,7 @@ namespace IronManUI {
             if (grabs.Count == 1) {
                 var transform = grabs[0].transform;
                 position = transform.position;
-                rotation = transform.rotation.eulerAngles;
+                rotation = Vector3.up;  //transform.rotation.eulerAngles;   //AM disable single hand rotation
                 radius = 1;
             }
             else if (grabs.Count == 2) {
