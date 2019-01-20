@@ -30,7 +30,7 @@ namespace IronManUI {
 
     public class IronManLeapManager : MonoBehaviour {
         public GameObject leapRig;
-        public float pinchDistanceThresh = .04f;
+        public float pinchDistanceThresh = .034f;
 
         public List<FingertipInfo> fingertipInfoList = new List<FingertipInfo>();
 
@@ -45,14 +45,14 @@ namespace IronManUI {
             foreach (var hand in leapRig.GetComponentsInChildren<InteractionHand>()) {
                 Debug.Log("Processing hand");
                 foreach (var finger in hand.transform.GetChildren()) {
-                    finger.gameObject.AddComponent<Fingertip>();
+                    RigFingertip(finger.gameObject);
                 }
                 
-                var thumb = hand.transform.GetChild(0).GetComponent<Fingertip>();
+                var thumb = hand.transform.GetChild(1).GetComponent<Fingertip>();
                 if (thumb == null)
                     Debug.Log("Warning: thumb not added.");
 
-                var indexFingertip = hand.transform.GetChild(1).GetComponent<Fingertip>();
+                var indexFingertip = hand.transform.GetChild(2).GetComponent<Fingertip>();
                 if (indexFingertip == null)
                     Debug.Log("Warning: index fingertip not added.");
 
@@ -64,6 +64,21 @@ namespace IronManUI {
 
                 fingertipInfoList.Add(new FingertipInfo(hand, thumb, indexFingertip));
             }
+        }
+
+        void RigFingertip(GameObject finger) {
+            finger.AddComponent<Fingertip>();
+            
+
+            var collider = finger.GetComponent<BoxCollider>();
+            if (collider == null)
+                collider = finger.AddComponent<BoxCollider>();
+            collider.size = new Vector3(.05f,.05f,.05f);
+
+            var rigidBody = finger.GetComponent<Rigidbody>();
+            if (rigidBody == null)
+                rigidBody = finger.AddComponent<Rigidbody>();
+            rigidBody.isKinematic = true;
         }
 
         void OnDisable() {
@@ -83,7 +98,9 @@ namespace IronManUI {
 
             foreach (var fingertipInfo in fingertipInfoList) {
                 var pinchDistance = Vector3.Distance(fingertipInfo.thumb.transform.position, fingertipInfo.fingertip.transform.position);
-                fingertipInfo.fingertip.grabbing = pinchDistance < pinchDistanceThresh;
+                bool grabbing = pinchDistance < pinchDistanceThresh;
+                Debug.Log("Pinch distance: " + pinchDistance + " :: " + grabbing);
+                fingertipInfo.fingertip.grabbing = grabbing;
             }
         }
 

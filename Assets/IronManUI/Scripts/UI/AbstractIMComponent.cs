@@ -25,7 +25,7 @@ namespace IronManUI {
 
 
     public abstract class AbstractIMComponent : MonoBehaviour {
-        protected float touchThickness = .25f;
+        protected float touchThickness = .02f;
 
         public readonly Spring3Motion translationMotion = new Spring3Motion();
         public readonly Spring3Motion rotationMotion = new Spring3Motion();

@@ -11,7 +11,7 @@ namespace IronManUI {
 
     /** AM: Provides basic physical motion influenced by acceleration inputs */
     public class Vector3Motion {
-        public float energyLoss = 4f;
+        public float energyLoss = 6f;
 
         public Vector3 position;
     
@@ -37,7 +37,7 @@ namespace IronManUI {
         public Vector3? origin;
 
         /** AM: Controls strength of spring acceleration toward the origin */
-        public float springK = 20;
+        public float springK = 50;
 
         public void Update() {
             Update(Time.deltaTime);
