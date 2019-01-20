@@ -29,7 +29,7 @@ namespace IronManUI {
         protected float touchThickness = .02f;
 
         public readonly Spring3Motion translationMotion = new Spring3Motion();
-        public readonly Spring3Motion rotationMotion = new Spring3Motion();
+        public readonly Spring3AngularMotion rotationMotion = new Spring3AngularMotion();
         public readonly Spring3Motion scalingMotion = new Spring3Motion();
 
 
@@ -162,7 +162,7 @@ namespace IronManUI {
                 CalculateGrabStats(out grabAvg, out grabRadius, out grabRotation);
 
                 parent.model.targetPosition = componentPositionAnchor + (grabAvg - grabAvgAnchor.Value);
-                parent.model.targetRotation = componentRotationAnchor + (grabRotationAnchor - grabRotation);
+                parent.model.targetRotation = componentRotationAnchor + (grabRotation - grabRotationAnchor);
                 
                 if (grabRadiusAnchor > .01 && grabRadius > .01) //safety checking
                     parent.model.targetScale = componentScaleAnchor * (grabRadius/ grabRadiusAnchor);
@@ -192,9 +192,11 @@ namespace IronManUI {
                 var p0 = grabs[0].transform.position;
                 var p1 = grabs[1].transform.position;
                 position = (p1 + p0) * .5f;
-                rotation = (p1 - p0);
-                radius = rotation.magnitude;
-                rotation.Normalize();
+                Vector3 delta = (p1 - p0);
+                radius = delta.magnitude;
+                rotation = Quaternion.LookRotation(delta, Vector3.up).eulerAngles;          //AM any way to optimize this?
+                rotation.x = 0;     //AM: Don't support tilting the text. At least not until I can work out better math for this
+
             }
             else {
                 position = Vector3.zero;
