@@ -21,8 +21,17 @@ namespace IronManUI {
 
         public static void DestroyChildren(this GameObject o) {
             var t = o.transform;
-            while (t.childCount > 0) {
-                Object.Destroy(t.GetChild(0));
+            bool editMode = Application.isEditor && !Application.isPlaying;
+            int count = t.childCount;
+
+            for (int i=0; i<count; i++) {
+                var child = t.GetChild(i).gameObject;
+                // child.transform.parent = null;
+
+                if (editMode)
+                    Object.DestroyImmediate(child);
+                else
+                    Object.Destroy(child.gameObject);
             }
         }
         

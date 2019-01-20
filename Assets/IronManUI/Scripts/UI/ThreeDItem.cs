@@ -52,6 +52,12 @@ namespace IronManUI {
                 boxCollider = gameObject.AddComponent<BoxCollider>();
         }
 
+        override protected void OnDisable() {
+            base.OnDisable();
+            gameObject.DestroyChildren();
+            loadedResName = null;
+        }
+
 
         override protected void Update() {
             ThreeDItemModel model = this.model as ThreeDItemModel;
@@ -67,14 +73,15 @@ namespace IronManUI {
                     }
                 }
                 loadedResName = model.resource;
+
+                var bounds = gameObject.GetBounds();        //TODO needs help
+                boxCollider.size = bounds.size;
+                boxCollider.center = bounds.center;
             }
 
             if (transform.childCount > 0) {
                 transform.GetChild(0).transform.localScale = new Vector3(model.resourceScale, model.resourceScale, model.resourceScale);
             }
-            var bounds = gameObject.GetBounds();        //TODO needs help
-            boxCollider.size = bounds.size;
-            boxCollider.center = bounds.center;
             
             base.Update();
         }
