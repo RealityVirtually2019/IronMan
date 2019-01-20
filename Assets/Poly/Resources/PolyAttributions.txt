@@ -90,6 +90,12 @@ URL: https://poly.google.com/view/bafn-qaRTOl
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: Trash can
+Author: Poly by Google
+URL: https://poly.google.com/view/0yT-YR5yO4L
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Tree
 Author: Poly by Google
 URL: https://poly.google.com/view/6pwiq7hSrHr
