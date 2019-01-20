@@ -6,6 +6,7 @@
  **/
  
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -34,6 +35,8 @@ namespace IronManUI {
 
         public bool visible = true;
 
+        public GrabHandler grab { get; private set; }
+
         private IMComponentModel _model;
         public IMComponentModel model {
             get {
@@ -53,13 +56,21 @@ namespace IronManUI {
 
 
         virtual protected void OnEnable() {
+            grab = new GrabHandler(this);
             // targetvisible ? transform.position;
             // rotationMotion.position = transform.rotation.eulerAngles;
             // scalingMotion.position = transform.localScale;
             
         }
+
+        virtual protected void OnDisable() {
+            grab = null;
+        }
+
         
         virtual protected void Update() {
+
+            grab.Update();
 
             translationMotion.origin = visible ? model.targetPosition : model.hiddenPosition;
             translationMotion.Update(Time.deltaTime);
@@ -95,5 +106,113 @@ namespace IronManUI {
 
     }
 
+    public class GrabHandler {
+        // private Dictionary<Fingertip, GrabInfo> grabs = new Dictionary<Fingertip, GrabInfo>();
+        private List<Fingertip> grabs = new List<Fingertip>(2);
+        private AbstractIMComponent parent;
+
+        private Vector3 componentPositionAnchor;
+        private Vector3 componentRotationAnchor;
+        private Vector3 componentScaleAnchor;
+
+        private Vector3? grabAvgAnchor;
+        private float grabRadiusAnchor;
+        private Vector3 grabRotationAnchor;
+
+        // private Vector3? grabCenter;
+
+        public GrabHandler(AbstractIMComponent parent) {
+            this.parent = parent;
+        }
+
+        public void Begin(Fingertip finger, Vector3 grabPoint) {
+            if (grabs.Count > 1)        //Max two grab points for now
+                return;
+            if (grabs.Contains(finger))
+                return;
+            grabs.Add(finger);//, new GrabInfo(grabPoint, parent.transform.position);
+            grabAvgAnchor = null;
+        }
+
+        // public void End(Fingertip finger) {
+        //     if (grabs.Remove(finger)) {
+        //         grabAvgAnchor = null;
+        //     }
+        // }
+
+        public void Update() {
+            //check that all grabing fingers are still grabbing. Remove them if not
+            List<Fingertip> removeKeys = new List<Fingertip>();
+            foreach (var finger in grabs) {
+                if (!finger.grabbing)
+                    removeKeys.Add(finger);
+            }
+            if (removeKeys.Count > 0) {
+                grabAvgAnchor = null;
+            }
+
+            foreach (var key in removeKeys) {
+                grabs.Remove(key);
+            }
+
+            
+            if (grabAvgAnchor.HasValue) {
+                Vector3 grabAvg, grabRotation;
+                float grabRadius;
+                CalculateGrabStats(out grabAvg, out grabRadius, out grabRotation);
+
+                parent.model.targetPosition = componentPositionAnchor + (grabAvg - grabAvgAnchor.Value);
+                parent.model.targetRotation = componentRotationAnchor + (grabRotationAnchor - grabRotation);
+                
+                if (grabRadiusAnchor > .01 && grabRadius > .01) //safety checking
+                    parent.model.targetScale = componentScaleAnchor * (grabRadius/ grabRadiusAnchor);
+
+            }
+            else {
+                Vector3 p;
+                CalculateGrabStats(out p, out grabRadiusAnchor, out grabRotationAnchor);
+                grabAvgAnchor = p;
+
+                var t = parent.transform;
+                componentPositionAnchor = t.position;
+                componentRotationAnchor = t.rotation.eulerAngles;
+                componentScaleAnchor = t.localScale;
+            }
+
+        }
+
+        void CalculateGrabStats(out Vector3 position, out float radius, out Vector3 rotation) {
+            if (grabs.Count == 1) {
+                var transform = grabs[0].transform;
+                position = transform.position;
+                rotation = transform.rotation.eulerAngles;
+                radius = 1;
+            }
+            else if (grabs.Count == 2) {
+                var p0 = grabs[0].transform.position;
+                var p1 = grabs[1].transform.position;
+                position = (p1 + p0) * .5f;
+                rotation = (p1 - p0);
+                radius = rotation.magnitude;
+                rotation.Normalize();
+            }
+            else {
+                position = Vector3.zero;
+                radius = 0;
+                rotation = Vector3.zero;
+            }
+        }
+
+    // public class GrabInfo {
+    //     public readonly Vector3 grabAnchor;
+    //     public readonly Vector3 componentAnchor;
+
+    //     public GrabInfo(Vector3 grabAnchor, Vector3 componentAnchor) {
+    //         this.grabAnchor = grabAnchor;
+    //         this.componentAnchor = componentAnchor;
+    //     }
+
+    // }
+    }
 
 }

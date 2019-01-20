@@ -7,20 +7,9 @@
 
 using UnityEngine;
 
+using System.Collections.Generic;
+
 namespace IronManUI {
-
-    public class GrabInfo {
-        public readonly AbstractIMComponent component;
-        public readonly Vector3 fingerAnchor;
-        public readonly Vector3 componentAnchor;
-
-        public GrabInfo(AbstractIMComponent component, Vector3 fingerAnchor, Vector3 componentAnchor) {
-            this.component = component;
-            this.fingerAnchor = fingerAnchor;
-            this.componentAnchor = componentAnchor;
-        }
-
-    }
 
     [RequireComponent(typeof(Rigidbody))]
     public class Fingertip : MonoBehaviour {
@@ -50,9 +39,9 @@ namespace IronManUI {
         private Vector3? previousPosition;
         protected Vector3 velocity;
 
-        private AbstractIMComponent touchingComp;       //TODO AM update to handle touching multiple components
+        private HashSet<AbstractIMComponent> touchingCompList = new HashSet<AbstractIMComponent>();
 
-        private GrabInfo currentGrab;
+        // private GrabInfo currentGrab;
 
 
 
@@ -65,7 +54,6 @@ namespace IronManUI {
         protected void Update() {
             UpdateVelocity();
             UpdateGrab();
-            
         }
 
         protected void UpdateVelocity() {
@@ -82,18 +70,18 @@ namespace IronManUI {
             if (grabbing != previouslyGrabbing) {
                 if (grabbing)
                     BeginGrab();
-                else
-                    EndGrab();
+                // else
+                //     EndGrab();
 
                 previouslyGrabbing = grabbing;
             }
 
-            if (currentGrab == null)
-                return;
+            // if (currentGrab == null)
+            //     return;
 
-            var moveDelta = transform.position - currentGrab.fingerAnchor;
-            // currentGrab.component.translationMotion.origin = currentGrab.componentAnchor + moveDelta;
-            currentGrab.component.model.targetPosition = currentGrab.componentAnchor + moveDelta;
+            // var moveDelta = transform.position - currentGrab.fingerAnchor;
+            // // currentGrab.component.translationMotion.origin = currentGrab.componentAnchor + moveDelta;
+            // currentGrab.component.model.targetPosition = currentGrab.componentAnchor + moveDelta;
         }
 
 
@@ -101,13 +89,14 @@ namespace IronManUI {
             // Debug.Log("Fingertip Collision enter");
             var component = collision.GetIronManComponent();
             if (component != null) {
-                touchingComp = component;
+                touchingCompList.Add(component);
             }
         }
 
+        /** Applies force to component motion integrator so it subtly reacts to user's fingers */
         void OnCollisionStay(Collision collision) {
             var component = collision.GetIronManComponent();
-            if (component != null && component == touchingComp) {
+            if (component != null) {
                 // Debug.Log("Component: " + component + " , motion: " + component.translationMotion);
                 // var deltaVelocity = collision.relativeVelocity - component.velocity;        //AM relative velocity does not incorporate velocity of the non-rigidbody collider
                 var deltaVelocity = velocity - component.translationMotion.velocity;
@@ -122,8 +111,8 @@ namespace IronManUI {
         void OnCollisionExit(Collision collision) {
             // Debug.Log("Fingertip Collision exit");
             var component = collision.GetIronManComponent();
-            if (component == touchingComp) {
-                touchingComp = null;
+            if (component != null) {
+                touchingCompList.Remove(component);
             }
             // if (currentGrab != null && component == currentGrab.component) {
             //     EndGrab();
@@ -132,20 +121,20 @@ namespace IronManUI {
         }
 
         public void BeginGrab() {
-                Debug.Log("Beginning Grab: " + touchingComp);
-            if (touchingComp != null) {
-                currentGrab = new GrabInfo(touchingComp, transform.position, touchingComp.transform.position);
+            foreach (var comp in touchingCompList) {
+                Debug.Log("Beginning Grab: " + comp);
+                comp.grab.Begin(this, transform.position);
             }
         }
 
 
-        public void EndGrab() {
-            if (currentGrab != null) {
-                currentGrab.component.translationMotion.origin = null;      //remove spring force
-                currentGrab = null;
-                Debug.Log("Ending Grab");
-            }
-        }
+        // public void EndGrab() {
+        //     if (currentGrab != null) {
+        //         currentGrab.component.translationMotion.origin = null;      //remove spring force
+        //         currentGrab = null;
+        //         Debug.Log("Ending Grab");
+        //     }
+        // }
 
 
 
