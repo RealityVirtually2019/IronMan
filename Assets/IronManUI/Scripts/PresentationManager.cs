@@ -21,27 +21,30 @@ namespace IronManUI {
     }
 
     [System.Serializable]
-    public class PresentationModel : Object {
-        public string presentationName = "Untitled";
+    public class PresentationModel {
+        public string name = "Untitled";
         public List<SlideModel> slides = new List<SlideModel>();
 
 
-        public void SaveToFile(string filepath) {
-            string json = JsonUtility.ToJson(this);
-            File.WriteAllText(filepath, json);
+        public string SaveToJson() {
+            return JsonUtility.ToJson(this, true);
         }
 
-        public void LoadFromFile(string filepath) {
-            string json = File.ReadAllText(filepath);
+        public void LoadFromJson(string json) {
             JsonUtility.FromJsonOverwrite(json, this);
         }
     }
 
     public class PresentationManager : MonoBehaviour {
+
+        public static PresentationManager instance { get; private set; }
+
         public string presentationFile = "Assets/Resources/Presentations/Main Presentation.pxr";
+        public string presentationName = "Untitled";
 
         public Slide slidePrefab;
         public TextBox textPrefab;
+        public ThreeDItem threeDPrefab;
 
         private Slide _currentSlide;
         public Slide currentSlide {
@@ -63,21 +66,35 @@ namespace IronManUI {
         // private PresentationModel model;
 
         void OnEnable() {
+            if (instance != null && instance != this)
+                Debug.LogWarning("Having multiple presentations in a scene is not supported");
+            instance = this;
+
             Load();
         }
 
         public void Load() {
-            var model = new PresentationModel();
-            model.LoadFromFile(presentationFile);
+            string json = File.ReadAllText(presentationFile);
+
+            PresentationModel model;
+            if (json != null && json.Length > 0) {
+                model = new PresentationModel();
+                model.LoadFromJson(json);
+            } else {
+                model = MakeDefault();
+            }
             SetModel(model);
         }
 
         public void Save() {
             var model = ExtractModel();
-            model.SaveToFile(presentationFile);
+            string json = model.SaveToJson();
+            File.WriteAllText(presentationFile, json);
         }
 
         protected void SetModel(PresentationModel model) {
+            presentationName = model.name;
+
             GetComponentsInChildren<Slide>().DestroyAllGameObjects();
 
             foreach (var slideModel in model.slides) {
@@ -89,7 +106,7 @@ namespace IronManUI {
 
         protected PresentationModel ExtractModel() {
             var model = new PresentationModel();
-            model.name = gameObject.name;
+            model.name = presentationName;
 
             foreach (var slide in GetComponentsInChildren<Slide>()) {
                 model.slides.Add(slide.ExtractModel());
@@ -121,6 +138,9 @@ namespace IronManUI {
             if (model is TextBoxModel) {
                 var textbox = Instantiate(textPrefab) as TextBox;
                 textbox.model = model;
+            } else if (model is ThreeDItemModel) {
+                var item = Instantiate(threeDPrefab);
+                item.model = model;
             }
 
             Debug.LogWarning("Cannot create component for model: " + model.GetType());
@@ -131,7 +151,7 @@ namespace IronManUI {
             if (slide == null)
                 return;
 
-
+            currentSlide = slide;
         }
 
 

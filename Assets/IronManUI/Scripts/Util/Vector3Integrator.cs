@@ -46,9 +46,44 @@ namespace IronManUI {
         override public void Update(float deltaTime) {
             
             if (springK > 0 && origin.HasValue)
-                AddAcceleration((origin.Value - position) * springK);
+                AddAcceleration(CalculateDelta() * springK);
             base.Update(deltaTime);
         }
+
+        virtual protected Vector3 CalculateDelta() {
+            return (origin.Value - position);
+        }
+    }
+
+
+    /* Angle in degrees */
+    public class Spring3AngularMotion : Spring3Motion {
+        override public void Update(float deltaTime) {
+            base.Update(deltaTime);
+
+            position = Modulus(position, 360);
+        }
+
+        //TODO AM cleanup/optimize
+        override protected Vector3 CalculateDelta() {
+            Vector3 delta = Modulus(origin.Value - position, 360);        //AM this modulus might not be necessary     
+            if (delta.x > 180) delta.x -= 360;
+            if (delta.y > 180) delta.y -= 360;
+            if (delta.z > 180) delta.z -= 360;
+            return delta;
+        }
+
+        public static float Modulus(float x, float m) {
+            return ((x % m) + m) % m;
+        }
+
+        public static Vector3 Modulus(Vector3 angle, float m) {
+            angle.x = Modulus(angle.x, m);
+            angle.y = Modulus(angle.y, m);
+            angle.z = Modulus(angle.z, m);
+            return angle;
+        }
+
     }
 
 

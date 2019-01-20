@@ -7,10 +7,14 @@
 
 using UnityEngine;
 
+using TMPro;
+
 namespace IronManUI {
 
     [System.Serializable]
     public class Slide : MonoBehaviour {
+
+        public TextMeshPro labelText;
 
         public PresentationManager manager;
 
@@ -25,6 +29,9 @@ namespace IronManUI {
             name = slideModel.name;
             transform.position = slideModel.position;
 
+            if (labelText != null)
+                labelText.text = name;
+
             foreach (var compModel in slideModel.components) {
                 var comp = manager.InstantiateComponent(compModel);
                 if (comp != null)
@@ -35,6 +42,7 @@ namespace IronManUI {
         public SlideModel ExtractModel() {
             var model = new SlideModel();
             model.name = name;
+            model.position = transform.position;
 
             foreach (var comp in GetComponentsInChildren<AbstractIMComponent>()) {
                 model.components.Add(comp.model);
@@ -43,11 +51,17 @@ namespace IronManUI {
         }
 
         public void Activate() {
-
+            Debug.Log("Activating slide " + this);
+            foreach (var comp in GetComponentsInChildren<AbstractIMComponent>()) {
+                comp.visible = true;
+            }
         }
 
         public void Deactivate() {
-
+            Debug.Log("Closing slide " + this);
+            foreach (var comp in GetComponentsInChildren<AbstractIMComponent>()) {
+                comp.visible = false;
+            }
         }
 
 
