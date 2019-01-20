@@ -96,6 +96,12 @@ URL: https://poly.google.com/view/8ygy9aKp1sZ
 License: Creative Commons CC-BY
 https://creativecommons.org/licenses/by/3.0/legalcode
 
+Title: Wall painting
+Author: Poly by Google
+URL: https://poly.google.com/view/0CiZ4f1cZaF
+License: Creative Commons CC-BY
+https://creativecommons.org/licenses/by/3.0/legalcode
+
 Title: Wind turbine
 Author: Poly by Google
 URL: https://poly.google.com/view/8Tke6WIyZtg
